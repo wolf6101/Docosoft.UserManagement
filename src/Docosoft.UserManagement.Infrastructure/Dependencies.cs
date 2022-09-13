@@ -18,7 +18,19 @@ namespace Docosoft.UserManagement.Infrastructure
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 
+            ApplyMigrations(services);
+
             return services;
+        }
+
+        public static void ApplyMigrations(IServiceCollection services)
+        {
+            var serviceProvider = services.BuildServiceProvider();
+
+            using (var context = serviceProvider.GetService<UserContext>())
+            {
+                context.Database.Migrate();
+            }
         }
     }
 }
