@@ -1,5 +1,5 @@
 using Docosoft.UserManagement.Domain.SeedWork;
-using Docosoft.UserManagement.Domain.Users;
+using Docosoft.UserManagement.Domain.Users.Repositories;
 
 namespace Docosoft.UserManagement.Domain.BusinessRules
 {

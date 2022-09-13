@@ -2,6 +2,7 @@ using Docosoft.UserManagement.Application.SeedWork;
 using Docosoft.UserManagement.Domain.BusinessRules;
 using Docosoft.UserManagement.Domain.SeedWork;
 using Docosoft.UserManagement.Domain.Users;
+using Docosoft.UserManagement.Domain.Users.Repositories;
 
 using MediatR;
 

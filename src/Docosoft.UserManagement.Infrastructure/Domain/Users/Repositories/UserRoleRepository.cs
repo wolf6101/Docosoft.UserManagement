@@ -1,8 +1,10 @@
 using Docosoft.UserManagement.Domain.Users;
+using Docosoft.UserManagement.Domain.Users.Repositories;
+using Docosoft.UserManagement.Infrastructure.Data;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace Docosoft.UserManagement.Infrastructure.Domain.Users
+namespace Docosoft.UserManagement.Infrastructure.Domain.Users.Repositories
 {
     public class UserRoleRepository : IUserRoleRepository
     {

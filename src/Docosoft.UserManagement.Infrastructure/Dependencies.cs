@@ -1,5 +1,6 @@
-using Docosoft.UserManagement.Domain.Users;
-using Docosoft.UserManagement.Infrastructure.Domain.Users;
+using Docosoft.UserManagement.Domain.Users.Repositories;
+using Docosoft.UserManagement.Infrastructure.Data;
+using Docosoft.UserManagement.Infrastructure.Domain.Users.Repositories;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

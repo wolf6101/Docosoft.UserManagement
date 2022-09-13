@@ -1,4 +1,5 @@
 using Docosoft.UserManagement.Domain.Users;
+using Docosoft.UserManagement.Domain.Users.Repositories;
 
 using MediatR;
 

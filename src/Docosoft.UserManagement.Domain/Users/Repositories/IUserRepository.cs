@@ -1,4 +1,4 @@
-namespace Docosoft.UserManagement.Domain.Users
+namespace Docosoft.UserManagement.Domain.Users.Repositories
 {
     public interface IUserRepository
     {
