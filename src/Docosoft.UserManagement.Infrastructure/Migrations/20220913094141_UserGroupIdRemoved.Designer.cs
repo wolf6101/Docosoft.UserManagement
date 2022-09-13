@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Docosoft.UserManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(UserContext))]
-    partial class UserContextModelSnapshot : ModelSnapshot
+    [Migration("20220913094141_UserGroupIdRemoved")]
+    partial class UserGroupIdRemoved
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,19 +58,6 @@ namespace Docosoft.UserManagement.Infrastructure.Migrations
                     b.HasIndex("UserRoleId");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("a75901a6-ab5d-4027-8816-a289e0714e1f"),
-                            CreatedDateTime = new DateTime(2022, 9, 13, 10, 54, 58, 981, DateTimeKind.Local).AddTicks(1526),
-                            Email = "johnsmith@email.com",
-                            FirstName = "Super",
-                            Gender = 0,
-                            LastName = "Admin",
-                            LastUpdatedDateTime = new DateTime(2022, 9, 13, 10, 54, 58, 981, DateTimeKind.Local).AddTicks(1560),
-                            UserRoleId = new Guid("bd4a08b6-8243-4754-9667-1bca049d0f4b")
-                        });
                 });
 
             modelBuilder.Entity("Docosoft.UserManagement.Domain.Users.UserGroup", b =>
@@ -88,38 +77,6 @@ namespace Docosoft.UserManagement.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserGroups");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("41e1ae0a-8af9-405a-93ff-ab3f24d7538c"),
-                            Description = "System Users group",
-                            Name = "System Users"
-                        },
-                        new
-                        {
-                            Id = new Guid("6b93145f-3ad7-4af4-bc2e-dea50293948a"),
-                            Description = "Users created for testing purposes",
-                            Name = "Test Users"
-                        },
-                        new
-                        {
-                            Id = new Guid("63350483-da5f-4e77-bc5e-ccd66cdda50e"),
-                            Description = "Developers users",
-                            Name = "Developers"
-                        },
-                        new
-                        {
-                            Id = new Guid("fe983c0b-6e05-40c6-97b8-b2d8867f442d"),
-                            Description = "Quality Assurance users",
-                            Name = "Quality Assurance"
-                        },
-                        new
-                        {
-                            Id = new Guid("0cbbf9ac-3134-44ab-858f-32f4610df050"),
-                            Description = "Interns Users",
-                            Name = "Interns"
-                        });
                 });
 
             modelBuilder.Entity("Docosoft.UserManagement.Domain.Users.UserRole", b =>
@@ -139,32 +96,6 @@ namespace Docosoft.UserManagement.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("62bd5e7a-6366-4299-bfff-946593695c53"),
-                            Description = "User with elevated access",
-                            Name = "Administrator"
-                        },
-                        new
-                        {
-                            Id = new Guid("bd4a08b6-8243-4754-9667-1bca049d0f4b"),
-                            Description = "User with highest access",
-                            Name = "SuperAdmin"
-                        },
-                        new
-                        {
-                            Id = new Guid("0813e00f-d49b-4675-b74a-0ab63bcf7404"),
-                            Description = "User with access to API services",
-                            Name = "API User"
-                        },
-                        new
-                        {
-                            Id = new Guid("c192a50e-be1a-41dc-b9a3-f9b986a20929"),
-                            Description = "Customer user registered via form",
-                            Name = "Customer"
-                        });
                 });
 
             modelBuilder.Entity("UserUserGroup", b =>
@@ -179,14 +110,7 @@ namespace Docosoft.UserManagement.Infrastructure.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("UserUserGroup", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            GroupsId = new Guid("41e1ae0a-8af9-405a-93ff-ab3f24d7538c"),
-                            UsersId = new Guid("a75901a6-ab5d-4027-8816-a289e0714e1f")
-                        });
+                    b.ToTable("UserUserGroup");
                 });
 
             modelBuilder.Entity("Docosoft.UserManagement.Domain.Users.User", b =>

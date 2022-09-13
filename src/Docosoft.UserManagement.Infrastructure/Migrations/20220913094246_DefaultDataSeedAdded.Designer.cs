@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Docosoft.UserManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(UserContext))]
-    partial class UserContextModelSnapshot : ModelSnapshot
+    [Migration("20220913094246_DefaultDataSeedAdded")]
+    partial class DefaultDataSeedAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,12 +63,12 @@ namespace Docosoft.UserManagement.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("a75901a6-ab5d-4027-8816-a289e0714e1f"),
-                            CreatedDateTime = new DateTime(2022, 9, 13, 10, 54, 58, 981, DateTimeKind.Local).AddTicks(1526),
+                            CreatedDateTime = new DateTime(2022, 9, 13, 10, 42, 46, 450, DateTimeKind.Local).AddTicks(3374),
                             Email = "johnsmith@email.com",
                             FirstName = "Super",
                             Gender = 0,
                             LastName = "Admin",
-                            LastUpdatedDateTime = new DateTime(2022, 9, 13, 10, 54, 58, 981, DateTimeKind.Local).AddTicks(1560),
+                            LastUpdatedDateTime = new DateTime(2022, 9, 13, 10, 42, 46, 450, DateTimeKind.Local).AddTicks(3405),
                             UserRoleId = new Guid("bd4a08b6-8243-4754-9667-1bca049d0f4b")
                         });
                 });
@@ -179,14 +181,7 @@ namespace Docosoft.UserManagement.Infrastructure.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("UserUserGroup", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            GroupsId = new Guid("41e1ae0a-8af9-405a-93ff-ab3f24d7538c"),
-                            UsersId = new Guid("a75901a6-ab5d-4027-8816-a289e0714e1f")
-                        });
+                    b.ToTable("UserUserGroup");
                 });
 
             modelBuilder.Entity("Docosoft.UserManagement.Domain.Users.User", b =>

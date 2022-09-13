@@ -1,4 +1,6 @@
 # Docosoft User Management Test Assignment
+## Domain model class diagram
+![DomainClassDiagram](./docs/UserManagementClassDiagram.jpg)
 
 ## How to run
 1. Pull repository
