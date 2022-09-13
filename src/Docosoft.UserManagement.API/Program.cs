@@ -17,6 +17,12 @@ builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 builder.Services.ConfigureInfrastructureServices(builder.Configuration);
 builder.Services.ConfigureApplicationServices(builder.Configuration);
 
+builder.Host.ConfigureLogging(logging =>
+{
+    logging.ClearProviders();
+    logging.AddConsole();
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

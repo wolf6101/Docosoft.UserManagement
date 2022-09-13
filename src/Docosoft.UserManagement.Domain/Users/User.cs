@@ -4,7 +4,7 @@ namespace Docosoft.UserManagement.Domain.Users
 {
     public class User : Entity
     {
-        public User(Guid id, string firstName, string lastName, GenderEnum gender, string email, Guid userRoleId, DateTime createdDateTime, DateTime lastUpdatedDateTime)
+        public User(Guid id, string firstName, string lastName, GenderEnum gender, string email, Guid userRoleId)
         : base(id)
         {
             this.FirstName = firstName;
@@ -12,8 +12,9 @@ namespace Docosoft.UserManagement.Domain.Users
             this.Gender = gender;
             this.Email = email;
             this.UserRoleId = userRoleId;
-            this.CreatedDateTime = createdDateTime;
-            this.LastUpdatedDateTime = lastUpdatedDateTime;
+            
+            CreatedDateTime = DateTime.Now;
+            LastUpdatedDateTime = DateTime.Now;
         }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
@@ -26,5 +27,16 @@ namespace Docosoft.UserManagement.Domain.Users
         // Navigation Properties
         public IEnumerable<UserGroup> Groups { get; private set; }
         public UserRole Role { get; private set; }
+
+        public void UpdateUser(User user)
+        {
+            if (!string.IsNullOrEmpty(user.FirstName)) FirstName = user.FirstName;
+            if (!string.IsNullOrEmpty(user.LastName)) LastName = user.LastName;
+            if (!string.IsNullOrEmpty(user.Email)) Email = user.Email;
+            if (user.UserRoleId != null) UserRoleId = user.UserRoleId;
+
+            Gender = user.Gender;
+            LastUpdatedDateTime = DateTime.Now;
+        }
     }
 }

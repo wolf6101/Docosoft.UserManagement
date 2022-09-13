@@ -18,6 +18,7 @@ namespace Docosoft.UserManagement.Application
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestExceptionProcessorBehavior<,>));
             services.AddScoped(typeof(IRequestExceptionHandler<CreateUserCommand, ResponseDto<UserDto>, Exception>), typeof(CreateUserCommandExceptionHandler));
+            services.AddScoped(typeof(IRequestExceptionHandler<UpdateUserCommand, ResponseDto<UserDto>, Exception>), typeof(UpdateUserCommandExceptionHandler));
             
             return services;
         }

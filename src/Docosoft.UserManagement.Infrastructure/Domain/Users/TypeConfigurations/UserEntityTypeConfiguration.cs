@@ -30,9 +30,7 @@ namespace Docosoft.UserManagement.Infrastructure.Domain.Users.TypeConfigurations
                     "Admin",
                     GenderEnum.Unknown,
                     "johnsmith@email.com",
-                    new Guid("bd4a08b6-8243-4754-9667-1bca049d0f4b"),
-                    DateTime.Now,
-                    DateTime.Now
+                    new Guid("bd4a08b6-8243-4754-9667-1bca049d0f4b")
                 ),
             });
         }

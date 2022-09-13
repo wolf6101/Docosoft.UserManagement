@@ -2,7 +2,7 @@ namespace Docosoft.UserManagement.Domain.Users.Repositories
 {
     public interface IUserRepository
     {
-        Task<IEnumerable<User>> GetAllAsync();
+        Task<IList<User>> GetAllAsync(int offset, int limit);
 
         Task<User?> GetAsync(Guid id);
 

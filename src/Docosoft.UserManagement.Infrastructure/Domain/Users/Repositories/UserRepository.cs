@@ -27,9 +27,12 @@ namespace Docosoft.UserManagement.Infrastructure.Domain.Users.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<User>> GetAllAsync()
+        public async Task<IList<User>> GetAllAsync(int offset, int limit)
         {
-            throw new NotImplementedException();
+            return await _context.Users.Include(u => u.Role)
+                .Skip(offset)
+                .Take(limit)
+                .ToListAsync();
         }
 
         public async Task<User?> GetAsync(Guid id)
@@ -44,9 +47,15 @@ namespace Docosoft.UserManagement.Infrastructure.Domain.Users.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<User> UpdateAsync(Guid id, User user)
+        public async Task<User?> UpdateAsync(Guid id, User user)
         {
-            throw new NotImplementedException();
+            var existingUser = await _context.Users.FindAsync(id);
+            if (existingUser == null) return null;
+
+            existingUser.UpdateUser(user);
+            await _context.SaveChangesAsync();
+            
+            return existingUser;;
         }
     }
 }

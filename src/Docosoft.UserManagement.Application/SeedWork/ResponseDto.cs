@@ -1,6 +1,6 @@
 namespace Docosoft.UserManagement.Application.SeedWork
 {
-    public class ResponseDto<TEntityDto>
+    public class ResponseDto<TEntityDto> where TEntityDto: IDto
     {
         public ResponseDto(TEntityDto entityDto) : this(entityDto, false, null)
         {
@@ -15,5 +15,7 @@ namespace Docosoft.UserManagement.Application.SeedWork
         public Exception? Error { get; }
         public TEntityDto? EntityDto { get; }
         public string? Message { get; set; }
+        public bool ResourceUpdated { get; set; }
+        public bool ResourceCreated { get; set; }
     }
 }

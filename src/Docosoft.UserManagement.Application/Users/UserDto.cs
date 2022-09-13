@@ -1,6 +1,8 @@
+using Docosoft.UserManagement.Application.SeedWork;
+
 namespace Docosoft.UserManagement.Application.Users
 {
-    public class UserDto
+    public class UserDto : IDto
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }
