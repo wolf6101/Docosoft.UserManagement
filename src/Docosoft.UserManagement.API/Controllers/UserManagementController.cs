@@ -5,11 +5,11 @@ namespace Docosoft.UserManagement.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AdventureController : ControllerBase
+    public class UserManagementController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public AdventureController(IMediator mediator)
+        public UserManagementController(IMediator mediator)
         {
             _mediator = mediator;
         }
