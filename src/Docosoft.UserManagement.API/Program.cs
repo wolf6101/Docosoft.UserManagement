@@ -1,12 +1,21 @@
-var builder = WebApplication.CreateBuilder(args);
+using System.Reflection;
 
-Docosoft.UserManagement.Infrastructure.Dependencies.ConfigureServices(builder.Configuration, builder.Services);
+using Docosoft.UserManagement.Application;
+using Docosoft.UserManagement.Infrastructure;
+
+using MediatR;
+
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.ConfigureInfrastructureServices(builder.Configuration);
+builder.Services.ConfigureApplicationServices(builder.Configuration);
 
 var app = builder.Build();
 

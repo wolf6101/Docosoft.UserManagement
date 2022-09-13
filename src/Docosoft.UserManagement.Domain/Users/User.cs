@@ -26,6 +26,5 @@ namespace Docosoft.UserManagement.Domain.Users
         // Navigation Properties
         public IEnumerable<UserGroup> Groups { get; private set; }
         public UserRole Role { get; private set; }
-
     }
 }
