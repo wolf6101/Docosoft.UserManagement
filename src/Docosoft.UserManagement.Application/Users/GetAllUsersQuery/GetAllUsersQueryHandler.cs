@@ -30,6 +30,7 @@ namespace Docosoft.UserManagement.Application.Users
                     Gender = user.Gender.ToString(),
                     Email = user.Email,
                     UserRoleName = user.Role.Name,
+                    UserRoleId = user.Role.Id
                 });
             }
 

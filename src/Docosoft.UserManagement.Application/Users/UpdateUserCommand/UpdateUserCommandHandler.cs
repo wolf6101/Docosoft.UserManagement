@@ -56,6 +56,7 @@ namespace Docosoft.UserManagement.Application.Users
                 Gender = response.Gender.ToString(),
                 Email = response.Email,
                 UserRoleName = response.Role.Name,
+                UserRoleId = response.Role.Id
             };
 
             return new ResponseDto<UserDto>(userDto)

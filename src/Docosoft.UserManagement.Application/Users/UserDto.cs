@@ -10,5 +10,6 @@ namespace Docosoft.UserManagement.Application.Users
         public string Gender { get; set; }
         public string Email { get; set; }
         public string UserRoleName { get; set; }
+        public Guid UserRoleId { get; set; }
     }
 }
