@@ -1,7 +1,6 @@
 using System.Net;
 
 using Docosoft.UserManagement.Application.Users;
-using Docosoft.UserManagement.Domain.SeedWork;
 
 using MediatR;
 

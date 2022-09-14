@@ -12,7 +12,7 @@ namespace Docosoft.UserManagement.Infrastructure
     {
         public static IServiceCollection ConfigureInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            var useInMemory = bool.Parse(configuration["UseInMemoryDatabase"]);
+            var useInMemory = bool.Parse(configuration["UseInMemoryDatabase"] ?? "false");
 
             if (useInMemory)
             {
