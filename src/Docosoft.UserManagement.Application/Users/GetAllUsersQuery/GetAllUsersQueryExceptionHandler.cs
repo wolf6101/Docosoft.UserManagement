@@ -8,6 +8,7 @@ namespace Docosoft.UserManagement.Application.Users
 {
     public class GetAllUsersQueryExceptionHandler : IRequestExceptionHandler<GetAllUsersQuery, IList<UserDto>, Exception>
     {
+        // TODO: Extract common logic to Base class
         private readonly ILogger<GetAllUsersQueryExceptionHandler> _logger;
 
         public GetAllUsersQueryExceptionHandler(ILogger<GetAllUsersQueryExceptionHandler> logger)

@@ -6,17 +6,17 @@ using Microsoft.Extensions.Logging;
 
 namespace Docosoft.UserManagement.Application.Users
 {
-    public class CreateUserCommandExceptionHandler : IRequestExceptionHandler<CreateUserCommand, ResponseDto<UserDto>, Exception>
+    public class DeleteUserCommandExceptionHandler : IRequestExceptionHandler<DeleteUserCommand, ResponseDto<UserDto>, Exception>
     {
         // TODO: Extract common logic to Base class
-        private readonly ILogger<CreateUserCommandExceptionHandler> _logger;
+        private readonly ILogger<DeleteUserCommandExceptionHandler> _logger;
 
-        public CreateUserCommandExceptionHandler(ILogger<CreateUserCommandExceptionHandler> logger)
+        public DeleteUserCommandExceptionHandler(ILogger<DeleteUserCommandExceptionHandler> logger)
         {
             _logger = logger;
         }
 
-        public Task Handle(CreateUserCommand request, Exception exception, RequestExceptionHandlerState<ResponseDto<UserDto>> state, CancellationToken cancellationToken)
+        public Task Handle(DeleteUserCommand request, Exception exception, RequestExceptionHandlerState<ResponseDto<UserDto>> state, CancellationToken cancellationToken)
         {
             _logger.LogError(exception, $"{DateTime.UtcNow.ToUniversalTime()}: {exception.Message}");
 
@@ -24,6 +24,7 @@ namespace Docosoft.UserManagement.Application.Users
             response.Message = exception.Message;
 
             state.SetHandled(response);
+
             return Task.CompletedTask;
         }
     }

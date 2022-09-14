@@ -22,9 +22,14 @@ namespace Docosoft.UserManagement.Infrastructure.Domain.Users.Repositories
             return response.Entity;
         }
 
-        public Task<User> DeleteAsync(Guid id)
+        public async Task<User?> DeleteAsync(User user)
         {
-            throw new NotImplementedException();
+            if (user == null) return null;
+
+            var response = _context.Remove(user);
+            await _context.SaveChangesAsync();
+
+            return response.Entity;
         }
 
         public async Task<IList<User>> GetAllAsync(int offset, int limit)

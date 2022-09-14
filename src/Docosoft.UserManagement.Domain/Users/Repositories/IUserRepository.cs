@@ -8,7 +8,7 @@ namespace Docosoft.UserManagement.Domain.Users.Repositories
 
         Task<User> AddAsync(User user);
 
-        Task<User> DeleteAsync(Guid id);
+        Task<User> DeleteAsync(User user);
 
         Task<User> UpdateAsync(Guid id, User user);
 

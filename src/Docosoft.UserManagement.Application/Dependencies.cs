@@ -19,6 +19,7 @@ namespace Docosoft.UserManagement.Application
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestExceptionProcessorBehavior<,>));
             services.AddScoped(typeof(IRequestExceptionHandler<CreateUserCommand, ResponseDto<UserDto>, Exception>), typeof(CreateUserCommandExceptionHandler));
             services.AddScoped(typeof(IRequestExceptionHandler<UpdateUserCommand, ResponseDto<UserDto>, Exception>), typeof(UpdateUserCommandExceptionHandler));
+            services.AddScoped(typeof(IRequestExceptionHandler<DeleteUserCommand, ResponseDto<UserDto>, Exception>), typeof(DeleteUserCommandExceptionHandler));
             
             return services;
         }

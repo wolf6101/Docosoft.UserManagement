@@ -71,18 +71,17 @@ namespace Docosoft.UserManagement.API.Controllers
             return Ok(response.EntityDto);
         }
 
-        [HttpPut]
+        [HttpDelete]
         [Route("", Name = "DeleteUser")]
-        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommand command)
+        public async Task<IActionResult> DeleteUser([FromQuery] DeleteUserCommand command)
         {
-            var response = await _mediator.Send(command);
+            var responseDto = await _mediator.Send(command);
+            if (responseDto.ErrorOccured) return BadRequest(responseDto.Error);
+            if (responseDto.EntityDto == null) return NoContent();
 
-            if (response.ErrorOccured) return Conflict(response.Message);
-            if (response.ResourceCreated) return CreatedAtRoute("CreateUser", new { id = response.EntityDto.Id }, response.EntityDto);
-
-            return Ok(response.EntityDto);
+            return Ok(responseDto.EntityDto);
         }
     }
 }
