@@ -1,7 +1,4 @@
 using Docosoft.UserManagement.Application.SeedWork;
-using Docosoft.UserManagement.Domain.BusinessRules;
-using Docosoft.UserManagement.Domain.SeedWork;
-using Docosoft.UserManagement.Domain.Users;
 using Docosoft.UserManagement.Domain.Users.Repositories;
 
 using MediatR;
@@ -21,12 +18,12 @@ namespace Docosoft.UserManagement.Application.Users
         {
             var user = await _userRepository.GetAsync(request.Id);
 
+            if (user == null) return new ResponseDto<UserDto>(null);
 
             if (user.Role.Name == "SuperAdmin")
             {
                 return new ResponseDto<UserDto>(null, true, null) { Message = "You don't have enough permissions" };
             }
-            if (user == null) return new ResponseDto<UserDto>(null);
 
             var result = await _userRepository.DeleteAsync(user);
 
