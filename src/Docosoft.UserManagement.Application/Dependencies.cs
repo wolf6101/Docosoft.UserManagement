@@ -2,6 +2,7 @@ using System.Reflection;
 
 using Docosoft.UserManagement.Application.SeedWork;
 using Docosoft.UserManagement.Application.Users;
+using Docosoft.UserManagement.Domain.SeedWork;
 
 using MediatR;
 using MediatR.Pipeline;
@@ -20,6 +21,8 @@ namespace Docosoft.UserManagement.Application
             services.AddScoped(typeof(IRequestExceptionHandler<CreateUserCommand, ResponseDto<UserDto>, Exception>), typeof(CreateUserCommandExceptionHandler));
             services.AddScoped(typeof(IRequestExceptionHandler<UpdateUserCommand, ResponseDto<UserDto>, Exception>), typeof(UpdateUserCommandExceptionHandler));
             services.AddScoped(typeof(IRequestExceptionHandler<DeleteUserCommand, ResponseDto<UserDto>, Exception>), typeof(DeleteUserCommandExceptionHandler));
+            services.AddScoped(typeof(IRequestExceptionHandler<DeleteUserCommand, ResponseDto<UserDto>, Exception>), typeof(DeleteUserCommandExceptionHandler));
+            services.AddScoped<IBusinessRuleValidator, BusinessRuleValidator>();
             
             return services;
         }

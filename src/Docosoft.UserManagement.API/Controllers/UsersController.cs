@@ -72,12 +72,12 @@ namespace Docosoft.UserManagement.API.Controllers
         }
 
         [HttpDelete]
-        [Route("", Name = "DeleteUser")]
+        [Route("{id:guid}", Name = "DeleteUser")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> DeleteUser([FromQuery] DeleteUserCommand command)
+        public async Task<IActionResult> DeleteUser(Guid id)
         {
-            var responseDto = await _mediator.Send(command);
+            var responseDto = await _mediator.Send(new DeleteUserCommand(id));
             if (responseDto.ErrorOccured) return BadRequest(responseDto.Error);
             if (responseDto.EntityDto == null) return NoContent();
 

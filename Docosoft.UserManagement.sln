@@ -13,6 +13,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Docosoft.UserManagement.Dom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Docosoft.UserManagement.Infrastructure", "src\Docosoft.UserManagement.Infrastructure\Docosoft.UserManagement.Infrastructure.csproj", "{4738163B-E393-4B2E-A8C3-11C60FE7F11D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1E2D8B4B-687E-4C1E-8B5A-D63213A217BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Docosoft.UserManagement.UnitTests", "tests\Docosoft.UserManagement.UnitTests\Docosoft.UserManagement.UnitTests.csproj", "{0E8E3001-FCE0-4D82-A067-98F2196A7AD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Docosoft.UserManagement.IntegrationTests", "tests\Docosoft.UserManagement.IntegrationTests\Docosoft.UserManagement.IntegrationTests.csproj", "{AD6A027A-6B4E-49D9-8694-B918AA5E97AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,11 +44,21 @@ Global
 		{4738163B-E393-4B2E-A8C3-11C60FE7F11D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4738163B-E393-4B2E-A8C3-11C60FE7F11D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4738163B-E393-4B2E-A8C3-11C60FE7F11D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E8E3001-FCE0-4D82-A067-98F2196A7AD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E8E3001-FCE0-4D82-A067-98F2196A7AD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E8E3001-FCE0-4D82-A067-98F2196A7AD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E8E3001-FCE0-4D82-A067-98F2196A7AD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD6A027A-6B4E-49D9-8694-B918AA5E97AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD6A027A-6B4E-49D9-8694-B918AA5E97AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD6A027A-6B4E-49D9-8694-B918AA5E97AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD6A027A-6B4E-49D9-8694-B918AA5E97AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6137E3B8-1825-415B-90CA-295517F5F928} = {E7FC20C9-EC65-4879-A919-C71950154DFE}
 		{8A52FAC0-7E55-4DD9-9139-0E83D066E5E5} = {E7FC20C9-EC65-4879-A919-C71950154DFE}
 		{2CA0A20C-282A-4D12-A1F2-74D6A44CB1AC} = {E7FC20C9-EC65-4879-A919-C71950154DFE}
 		{4738163B-E393-4B2E-A8C3-11C60FE7F11D} = {E7FC20C9-EC65-4879-A919-C71950154DFE}
+		{0E8E3001-FCE0-4D82-A067-98F2196A7AD8} = {1E2D8B4B-687E-4C1E-8B5A-D63213A217BB}
+		{AD6A027A-6B4E-49D9-8694-B918AA5E97AE} = {1E2D8B4B-687E-4C1E-8B5A-D63213A217BB}
 	EndGlobalSection
 EndGlobal

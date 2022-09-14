@@ -13,6 +13,8 @@ namespace Docosoft.UserManagement.Domain.BusinessRules
         }
         public string Message => $"gender: {_gender} is not valid. Possible values: Unknown | Male | Female | NonBinary";
 
+        public string Name => typeof(GenderShouldBeValid).Name;
+
         public async Task<bool> IsBroken()
         {
             var isParsed = Enum.TryParse(typeof(GenderEnum), _gender, true, out var gender);

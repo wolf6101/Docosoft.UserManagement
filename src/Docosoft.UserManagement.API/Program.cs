@@ -5,37 +5,37 @@ using Docosoft.UserManagement.Infrastructure;
 
 using MediatR;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
-builder.Services.ConfigureInfrastructureServices(builder.Configuration);
-builder.Services.ConfigureApplicationServices(builder.Configuration);
-
-builder.Host.ConfigureLogging(logging =>
+public partial class Program
 {
-    logging.ClearProviders();
-    logging.AddConsole();
-});
+    public static void Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
 
-var app = builder.Build();
+        // Add services to the container.
+        builder.Services.AddControllers();
+        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
 
-// Configure the HTTP request pipeline.
-// if (app.Environment.IsDevelopment())
-// {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-// }
+        builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+        builder.Services.ConfigureInfrastructureServices(builder.Configuration);
+        builder.Services.ConfigureApplicationServices(builder.Configuration);
 
-// app.UseHttpsRedirection();
+        builder.Host.ConfigureLogging(logging =>
+        {
+            logging.ClearProviders();
+            logging.AddConsole();
+        });
 
-app.UseAuthorization();
+        var app = builder.Build();
 
-app.MapControllers();
+        app.UseSwagger();
+        app.UseSwaggerUI();
 
-app.Run();
+        app.UseAuthorization();
+
+        app.MapControllers();
+
+        app.Run();
+    }
+}

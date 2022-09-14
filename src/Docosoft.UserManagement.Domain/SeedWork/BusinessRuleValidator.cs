@@ -1,16 +1,12 @@
 namespace Docosoft.UserManagement.Domain.SeedWork
 {
-    public class BusinessRuleValidator
+
+    public class BusinessRuleValidator : IBusinessRuleValidator
     {
-        private readonly IList<IBusinessRule> _rules;
-
-        public BusinessRuleValidator(IList<IBusinessRule> rules)
+        public async Task AssertRules(IEnumerable<IBusinessRule> rules)
         {
-            _rules = rules;
-        }
-
-        public async Task AssertRules() {
-            foreach (var rule in _rules) {
+            foreach (var rule in rules)
+            {
                 await CheckRule(rule);
             }
         }

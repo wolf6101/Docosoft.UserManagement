@@ -38,5 +38,16 @@ namespace Docosoft.UserManagement.Domain.Users
             Gender = user.Gender;
             LastUpdatedDateTime = DateTime.Now;
         }
+
+        // This is responsibility of the client to make sure UserRole exists in the db, otherwise exception on dbcontext.SaveChanges
+        public bool SetUserRole(UserRole role) {
+            if (role.Id == Guid.Empty) return false;
+            if (String.IsNullOrEmpty(role.Name)) return false;
+            
+            UserRoleId = role.Id;
+            Role = role;
+
+            return true;
+        }
     }
 }

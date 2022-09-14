@@ -12,14 +12,19 @@ namespace Docosoft.UserManagement.Infrastructure
     {
         public static IServiceCollection ConfigureInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("Main");
-            services.AddDbContext<UserContext>(options =>
-                options.UseSqlServer(connectionString));
+            var useInMemory = bool.Parse(configuration["UseInMemoryDatabase"]);
+
+            if (useInMemory)
+            {
+                ConfigureInMemoryDatabase(services);
+            }
+            else
+            {
+                ConfigureDatabase(services, configuration);
+            }
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserRoleRepository, UserRoleRepository>();
-
-            ApplyMigrations(services);
 
             return services;
         }
@@ -31,6 +36,26 @@ namespace Docosoft.UserManagement.Infrastructure
             using (var context = serviceProvider.GetService<UserContext>())
             {
                 context.Database.Migrate();
+            }
+        }
+
+        public static void ConfigureDatabase(IServiceCollection services, IConfiguration configuration)
+        {
+            var connectionString = configuration.GetConnectionString("Main");
+
+            services.AddDbContext<UserContext>(options => options.UseSqlServer(connectionString));
+            ApplyMigrations(services);
+        }
+
+        public static void ConfigureInMemoryDatabase(IServiceCollection services)
+        {
+            services.AddDbContext<UserContext>(options => options.UseInMemoryDatabase("InMemoryUserManagement"));
+
+            var serviceProvider = services.BuildServiceProvider();
+
+            using (var context = serviceProvider.GetService<UserContext>())
+            {
+                context.Database.EnsureCreated(); // Seeds InMemory database
             }
         }
     }

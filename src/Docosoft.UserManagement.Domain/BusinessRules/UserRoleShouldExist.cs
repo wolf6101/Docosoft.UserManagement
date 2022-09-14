@@ -16,6 +16,8 @@ namespace Docosoft.UserManagement.Domain.BusinessRules
 
         public string Message => $"User role with Id: \"{_roleId}\" doesn't exist";
 
+        public string Name => typeof(UserRoleShouldExist).Name;
+
         public async Task<bool> IsBroken()
         {
             var userRole = await _userRoleRepository.GetAsync(_roleId);

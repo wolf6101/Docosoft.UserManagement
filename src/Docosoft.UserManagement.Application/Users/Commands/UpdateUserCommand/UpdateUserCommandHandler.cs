@@ -12,21 +12,22 @@ namespace Docosoft.UserManagement.Application.Users
     {
         private readonly IUserRepository _userRepository;
         private readonly IUserRoleRepository _userRoleRepository;
+        private readonly IBusinessRuleValidator _validator;
 
-        public UpdateUserCommandHandler(IUserRepository userRepository, IUserRoleRepository userRoleRepository)
+        public UpdateUserCommandHandler(IUserRepository userRepository, IUserRoleRepository userRoleRepository, IBusinessRuleValidator validator)
         {
             _userRepository = userRepository;
             _userRoleRepository = userRoleRepository;
-
+            _validator = validator;
         }
         public async Task<ResponseDto<UserDto>> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
             var rules = new List<IBusinessRule> {
-                    new GenderShouldBeValid(request.Gender),
-                    new UserRoleShouldExist(request.UserRoleId, _userRoleRepository),
-                };
+                new GenderShouldBeValid(request.Gender),
+                new UserRoleShouldExist(request.UserRoleId, _userRoleRepository),
+            };
             
-            await new BusinessRuleValidator(rules).AssertRules();
+            await _validator.AssertRules(rules);
 
             var gender = (GenderEnum)Enum.Parse(typeof(GenderEnum), request.Gender, true);
 
