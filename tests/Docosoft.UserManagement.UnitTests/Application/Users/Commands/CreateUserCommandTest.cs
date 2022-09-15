@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 
 using Docosoft.UserManagement.Application.Users;
+using Docosoft.UserManagement.Domain.BusinessRules;
 using Docosoft.UserManagement.Domain.SeedWork;
 using Docosoft.UserManagement.Domain.Users;
 using Docosoft.UserManagement.Domain.Users.Repositories;
@@ -15,7 +16,7 @@ namespace Docosoft.UserManagement.UnitTests.Application.Users.Commands
     public class CreateUserCommandTest
     {
         [Fact]
-        public async void CreateUserCommandHandler_ValidCommand_ShouldResponseResponseDto()
+        public async void CreateUserCommandHandler_ValidCommand_ShouldReturnResponseDto()
         {
             // Arrange
             const string FirstName = "User First Name";
@@ -45,8 +46,6 @@ namespace Docosoft.UserManagement.UnitTests.Application.Users.Commands
 
             userRepoMock.Setup(r => r.AddAsync(It.IsAny<User>())).ReturnsAsync(user);
 
-            var validatorMock = new Mock<IBusinessRuleValidator>();
-
             var command = new CreateUserCommand(
                 FirstName,
                 LastName,
@@ -56,8 +55,10 @@ namespace Docosoft.UserManagement.UnitTests.Application.Users.Commands
 
             var token = new CancellationToken();
 
+            var validator = new BusinessRuleValidator();
+
             // Act
-            var handler = new CreateUserCommandHandler(userRepoMock.Object, userRoleRepoMock.Object, validatorMock.Object);
+            var handler = new CreateUserCommandHandler(userRepoMock.Object, userRoleRepoMock.Object, validator);
 
             // Assert
             var result = await handler.Handle(command, token);
@@ -69,6 +70,79 @@ namespace Docosoft.UserManagement.UnitTests.Application.Users.Commands
             Assert.Equal(result.EntityDto.Email, Email);
             Assert.Equal(result.EntityDto.UserRoleId, UserRoleId);
             Assert.Equal(result.EntityDto.UserRoleName, userRole.Name);
+        }
+
+        [Fact]
+        public async void CreateUserCommandHandler_InvalidGender_ShouldThrowValidationException()
+        {
+            // Arrange
+            const string FirstName = "User First Name";
+            const string LastName = "User Last Name";
+            const string Email = "email@email.com";
+            const string Gender = "INVALID";
+
+            Guid UserRoleId = new Guid("0bf827f5-f9b6-49ff-90c0-c9563e24c022");
+
+            var userRoleRepoMock = new Mock<IUserRoleRepository>();
+            var userRole = new UserRole(UserRoleId, "TestRole", "Test Role");
+
+            userRoleRepoMock.Setup(ur => ur.GetAsync(It.IsAny<Guid>())).ReturnsAsync(userRole);
+
+            var userRepoMock = new Mock<IUserRepository>();
+
+            var command = new CreateUserCommand(
+                FirstName,
+                LastName,
+                Gender,
+                Email,
+                UserRoleId);
+
+            var token = new CancellationToken();
+
+            var validator = new BusinessRuleValidator();
+
+            // Act
+            var handler = new CreateUserCommandHandler(userRepoMock.Object, userRoleRepoMock.Object, validator);
+
+            // Assert
+            var exception = await Assert.ThrowsAsync<BusinessRuleValidationException>(() => handler.Handle(command, token));
+            Assert.Equal(exception.BrokenRule.Name, typeof(GenderShouldBeValid).Name);
+        }
+
+        [Fact]
+        public async void CreateUserCommandHandler_RoleDoesntExist_ShouldThrowValidationException()
+        {
+            // Arrange
+            const string FirstName = "User First Name";
+            const string LastName = "User Last Name";
+            const string Email = "email@email.com";
+            const string Gender = "Male";
+
+            Guid UserRoleId = new Guid("0bf827f5-f9b6-49ff-90c0-c9563e24c022");
+
+            var userRoleRepoMock = new Mock<IUserRoleRepository>();
+
+            userRoleRepoMock.Setup(ur => ur.GetAsync(It.IsAny<Guid>())).ReturnsAsync(() => null);
+
+            var userRepoMock = new Mock<IUserRepository>();
+
+            var command = new CreateUserCommand(
+                FirstName,
+                LastName,
+                Gender,
+                Email,
+                UserRoleId);
+
+            var token = new CancellationToken();
+
+            var validator = new BusinessRuleValidator();
+
+            // Act
+            var handler = new CreateUserCommandHandler(userRepoMock.Object, userRoleRepoMock.Object, validator);
+
+            // Assert
+            var exception = await Assert.ThrowsAsync<BusinessRuleValidationException>(() => handler.Handle(command, token));
+            Assert.Equal(exception.BrokenRule.Name, typeof(UserRoleShouldExist).Name);
         }
     }
 }
