@@ -17,9 +17,9 @@ namespace Docosoft.UserManagement.Application.Users
             var users = await _userRepository.GetAllAsync(request.Offset, request.Limit);
 
             if (users == null || users.Count == 0) return null;
-            
+
             var result = new List<UserDto>();
-            
+
             foreach (var user in users)
             {
                 result.Add(new UserDto

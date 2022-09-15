@@ -12,7 +12,7 @@ namespace Docosoft.UserManagement.Domain.Users
             this.Gender = gender;
             this.Email = email;
             this.UserRoleId = userRoleId;
-            
+
             CreatedDateTime = DateTime.Now;
             LastUpdatedDateTime = DateTime.Now;
         }
@@ -33,17 +33,18 @@ namespace Docosoft.UserManagement.Domain.Users
             if (!string.IsNullOrEmpty(user.FirstName)) FirstName = user.FirstName;
             if (!string.IsNullOrEmpty(user.LastName)) LastName = user.LastName;
             if (!string.IsNullOrEmpty(user.Email)) Email = user.Email;
-            if (user.UserRoleId != null) UserRoleId = user.UserRoleId;
+            if (user.UserRoleId != Guid.Empty) UserRoleId = user.UserRoleId;
 
             Gender = user.Gender;
             LastUpdatedDateTime = DateTime.Now;
         }
 
         // This is responsibility of the client to make sure UserRole exists in the db, otherwise exception on dbcontext.SaveChanges
-        public bool SetUserRole(UserRole role) {
+        public bool SetUserRole(UserRole role)
+        {
             if (role.Id == Guid.Empty) return false;
             if (String.IsNullOrEmpty(role.Name)) return false;
-            
+
             UserRoleId = role.Id;
             Role = role;
 

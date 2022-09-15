@@ -1,11 +1,13 @@
 using System;
-using Xunit;
-using Docosoft.UserManagement.Application.Users;
-using Moq;
-using Docosoft.UserManagement.Domain.Users.Repositories;
-using Docosoft.UserManagement.Domain.Users;
 using System.Threading;
-using Docosoft.UserManagement.Domain.SeedWork;
+
+using Docosoft.UserManagement.Application.Users;
+using Docosoft.UserManagement.Domain.Users;
+using Docosoft.UserManagement.Domain.Users.Repositories;
+
+using Moq;
+
+using Xunit;
 
 namespace Docosoft.UserManagement.UnitTests.Application.Users.Commands
 {
@@ -18,7 +20,6 @@ namespace Docosoft.UserManagement.UnitTests.Application.Users.Commands
             const string FirstName = "User First Name";
             const string LastName = "User Last Name";
             const string Email = "email@email.com";
-            const string Gender = "Female";
 
             Guid UserRoleId = new Guid("0bf827f5-f9b6-49ff-90c0-c9563e24c022");
 
@@ -65,7 +66,6 @@ namespace Docosoft.UserManagement.UnitTests.Application.Users.Commands
             const string FirstName = "User First Name";
             const string LastName = "User Last Name";
             const string Email = "email@email.com";
-            const string Gender = "Female";
 
             Guid UserRoleId = new Guid("0bf827f5-f9b6-49ff-90c0-c9563e24c022");
 

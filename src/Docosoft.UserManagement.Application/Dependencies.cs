@@ -23,7 +23,7 @@ namespace Docosoft.UserManagement.Application
             services.AddScoped(typeof(IRequestExceptionHandler<DeleteUserCommand, ResponseDto<UserDto>, Exception>), typeof(DeleteUserCommandExceptionHandler));
             services.AddScoped(typeof(IRequestExceptionHandler<DeleteUserCommand, ResponseDto<UserDto>, Exception>), typeof(DeleteUserCommandExceptionHandler));
             services.AddScoped<IBusinessRuleValidator, BusinessRuleValidator>();
-            
+
             return services;
         }
     }

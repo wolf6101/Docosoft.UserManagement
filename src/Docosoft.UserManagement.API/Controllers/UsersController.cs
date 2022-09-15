@@ -52,7 +52,7 @@ namespace Docosoft.UserManagement.API.Controllers
         {
             var command = new CreateUserCommand(request);
             var response = await _mediator.Send(command);
-            
+
             if (response.ErrorOccured) return BadRequest(response.Message);
 
             return CreatedAtRoute("CreateUser", new { id = response.EntityDto.Id }, response.EntityDto);
@@ -62,7 +62,7 @@ namespace Docosoft.UserManagement.API.Controllers
         [Route("", Name = "UpdateUser")]
         [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.Conflict)]
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserRequestDto request)
         {
             var command = new UpdateUserCommand(request);

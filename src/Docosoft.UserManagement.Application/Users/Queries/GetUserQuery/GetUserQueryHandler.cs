@@ -12,15 +12,16 @@ namespace Docosoft.UserManagement.Application.Users
         public GetUserQueryHandler(IUserRepository repository)
         {
             _userRepository = repository;
-            
+
         }
         public async Task<UserDto?> Handle(GetUserQuery request, CancellationToken cancellationToken)
         {
             var user = await _userRepository.GetAsync(request.UserId);
-            
+
             if (user == null) return null;
 
-            return new UserDto {
+            return new UserDto
+            {
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,

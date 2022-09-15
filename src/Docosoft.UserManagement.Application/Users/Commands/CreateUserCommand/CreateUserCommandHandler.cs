@@ -26,7 +26,7 @@ namespace Docosoft.UserManagement.Application.Users
                 new GenderShouldBeValid(request.Gender),
                 new UserRoleShouldExist(request.UserRoleId, _userRoleRepository),
             };
-            
+
             await _validator.AssertRules(rules);
 
             var gender = (GenderEnum)Enum.Parse(typeof(GenderEnum), request.Gender, true);

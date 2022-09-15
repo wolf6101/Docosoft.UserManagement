@@ -21,7 +21,7 @@ namespace Docosoft.UserManagement.Domain.BusinessRules
         public async Task<bool> IsBroken()
         {
             var userRole = await _userRoleRepository.GetAsync(_roleId);
-            
+
             return userRole == null;
         }
     }

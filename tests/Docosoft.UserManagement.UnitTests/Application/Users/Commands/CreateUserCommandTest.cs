@@ -1,11 +1,14 @@
 using System;
-using Xunit;
-using Docosoft.UserManagement.Application.Users;
-using Moq;
-using Docosoft.UserManagement.Domain.Users.Repositories;
-using Docosoft.UserManagement.Domain.Users;
 using System.Threading;
+
+using Docosoft.UserManagement.Application.Users;
 using Docosoft.UserManagement.Domain.SeedWork;
+using Docosoft.UserManagement.Domain.Users;
+using Docosoft.UserManagement.Domain.Users.Repositories;
+
+using Moq;
+
+using Xunit;
 
 namespace Docosoft.UserManagement.UnitTests.Application.Users.Commands
 {

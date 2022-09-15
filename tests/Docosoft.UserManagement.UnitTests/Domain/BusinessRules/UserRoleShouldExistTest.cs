@@ -23,10 +23,10 @@ namespace Docosoft.UserManagement.UnitTests.Domain.BusinessRules
             repositoryMock.Setup(r => r.GetAsync(id)).ReturnsAsync(userRole);
 
             var rule = new UserRoleShouldExist(id, repositoryMock.Object);
-            
+
             // Act
             var result = await rule.IsBroken();
-            
+
             // Assert
             Assert.False(result);
         }
@@ -41,10 +41,10 @@ namespace Docosoft.UserManagement.UnitTests.Domain.BusinessRules
             repositoryMock.Setup(r => r.GetAsync(It.IsAny<Guid>())).ReturnsAsync(() => null);
 
             var rule = new UserRoleShouldExist(id, repositoryMock.Object);
-            
+
             // Act
             var result = await rule.IsBroken();
-            
+
             // Assert
             Assert.True(result);
         }

@@ -5,21 +5,28 @@ namespace Docosoft.UserManagement.Domain.BusinessRules
 {
     public class GenderShouldBeValid : IBusinessRule
     {
-        private string _gender;
+        private readonly string _gender;
 
         public GenderShouldBeValid(string gender)
         {
             _gender = gender;
         }
-        public string Message => $"gender: {_gender} is not valid. Possible values: Unknown | Male | Female | NonBinary";
+        public string Message
+        {
+            get
+            {
+                var possibleValues = Enum.GetValues(typeof(GenderEnum)).Cast<GenderEnum>().ToList();
+                return $"gender: {_gender} is not valid. Possible values: {String.Join(" | ", possibleValues)}";
+            }
+        }
 
         public string Name => typeof(GenderShouldBeValid).Name;
 
-        public async Task<bool> IsBroken()
+        public Task<bool> IsBroken()
         {
             var isParsed = Enum.TryParse(typeof(GenderEnum), _gender, true, out var gender);
 
-            return !isParsed;
+            return Task.FromResult(!isParsed);
         }
     }
 }

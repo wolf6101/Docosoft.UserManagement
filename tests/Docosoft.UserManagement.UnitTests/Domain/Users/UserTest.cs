@@ -10,7 +10,7 @@ namespace Docosoft.UserManagement.UnitTests.Domain.Users
     public class UserTest
     {
         [Fact]
-        public async void User_UpdateUser_ShouldNotOverrideUserWithEmptyValues()
+        public void User_UpdateUser_ShouldNotOverrideUserWithEmptyValues()
         {
             // Arrange
             var userId = new Guid("4ea82454-7296-4afb-9e05-09fc3e05fe38");
@@ -51,7 +51,7 @@ namespace Docosoft.UserManagement.UnitTests.Domain.Users
 
         [Theory]
         [MemberData(nameof(InvalidTestUserRoles))]
-        public async void User_SetUserRole_InvalidRole_ShouldReturnFalse(UserRole userRole)
+        public void User_SetUserRole_InvalidRole_ShouldReturnFalse(UserRole userRole)
         {
             // Arrange
             var userId = new Guid("4ea82454-7296-4afb-9e05-09fc3e05fe38");
@@ -78,7 +78,7 @@ namespace Docosoft.UserManagement.UnitTests.Domain.Users
         }
 
         [Fact]
-        public async void User_SetUserRole_ValidRole_ShouldReturnTrue()
+        public void User_SetUserRole_ValidRole_ShouldReturnTrue()
         {
             // Arrange
             var userId = new Guid("4ea82454-7296-4afb-9e05-09fc3e05fe38");

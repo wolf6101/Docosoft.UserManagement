@@ -1,18 +1,21 @@
-using Xunit;
-using Microsoft.AspNetCore.Mvc.Testing;
+using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http.Json;
-using System.Collections.Generic;
+
 using Docosoft.UserManagement.Application.Users;
+
 using Microsoft.AspNetCore.Hosting;
-using System;
+using Microsoft.AspNetCore.Mvc.Testing;
+
+using Xunit;
 
 namespace Docosoft.UserManagement.IntegrationTests.API.Users
 {
     public class UserControllerTest : IClassFixture<WebApplicationFactory<Program>>
     {
         private readonly WebApplicationFactory<Program> _factory;
-        private Guid ApiUsersRoleId = new Guid("0813e00f-d49b-4675-b74a-0ab63bcf7404"); //seeded in db context
+        private readonly Guid ApiUsersRoleId = new Guid("0813e00f-d49b-4675-b74a-0ab63bcf7404"); //seeded in db context
 
         public UserControllerTest(WebApplicationFactory<Program> factory)
         {
@@ -47,7 +50,6 @@ namespace Docosoft.UserManagement.IntegrationTests.API.Users
             // Assert
             Assert.Equal(HttpStatusCode.Created, postResponse.StatusCode);
             Assert.NotNull(userDto);
-            Assert.NotNull(userDto.Id);
             Assert.Equal(userDto.FirstName, createRequest.FirstName);
             Assert.Equal(userDto.LastName, createRequest.LastName);
             Assert.Equal(userDto.Email, createRequest.Email);
@@ -55,7 +57,6 @@ namespace Docosoft.UserManagement.IntegrationTests.API.Users
 
             Assert.Equal(HttpStatusCode.OK, deleteResponse.StatusCode);
             Assert.NotNull(deleteUserDto);
-            Assert.NotNull(deleteUserDto.Id);
         }
 
         [Fact]
@@ -92,7 +93,6 @@ namespace Docosoft.UserManagement.IntegrationTests.API.Users
 
             Assert.Equal(HttpStatusCode.OK, deleteResponse.StatusCode);
             Assert.NotNull(deleteUserDto);
-            Assert.NotNull(deleteUserDto.Id);
         }
 
         [Fact]
@@ -138,7 +138,6 @@ namespace Docosoft.UserManagement.IntegrationTests.API.Users
 
             Assert.Equal(HttpStatusCode.OK, deleteResponse.StatusCode);
             Assert.NotNull(deleteUserDto);
-            Assert.NotNull(deleteUserDto.Id);
         }
 
         [Fact]
@@ -175,7 +174,6 @@ namespace Docosoft.UserManagement.IntegrationTests.API.Users
 
             Assert.Equal(HttpStatusCode.OK, deleteResponse.StatusCode);
             Assert.NotNull(deleteUserDto);
-            Assert.NotNull(deleteUserDto.Id);
         }
 
         [Fact]
@@ -204,11 +202,10 @@ namespace Docosoft.UserManagement.IntegrationTests.API.Users
 
             Assert.Equal(HttpStatusCode.OK, getResponse.StatusCode); // should be OK because user existed before PUT
             Assert.NotNull(getUsersDtos);
-            Assert.Equal(getUsersDtos.Count, 2); // added in the test + SuperUser from dbcontext seed
+            Assert.Equal(2, getUsersDtos.Count); // added in the test + SuperUser from dbcontext seed
 
             Assert.Equal(HttpStatusCode.OK, deleteResponse.StatusCode);
             Assert.NotNull(deleteUserDto);
-            Assert.NotNull(deleteUserDto.Id);
         }
     }
 }

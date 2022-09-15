@@ -26,7 +26,7 @@ namespace Docosoft.UserManagement.Application.Users
                 new GenderShouldBeValid(request.Gender),
                 new UserRoleShouldExist(request.UserRoleId, _userRoleRepository),
             };
-            
+
             await _validator.AssertRules(rules);
 
             var gender = (GenderEnum)Enum.Parse(typeof(GenderEnum), request.Gender, true);
@@ -42,7 +42,7 @@ namespace Docosoft.UserManagement.Application.Users
             var wasCreated = false;
 
             var response = await _userRepository.UpdateAsync(user.Id, user);
-            
+
             if (response == null)
             {
                 response = await _userRepository.AddAsync(user);

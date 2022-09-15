@@ -7,7 +7,7 @@ namespace Docosoft.UserManagement.Application.Users
     public class DeleteUserCommand : IRequest<ResponseDto<UserDto>>
     {
         public DeleteUserCommand()
-        {       
+        {
         }
 
         public DeleteUserCommand(Guid id)
