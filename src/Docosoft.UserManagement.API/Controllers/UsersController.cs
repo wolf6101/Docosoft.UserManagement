@@ -81,7 +81,7 @@ namespace Docosoft.UserManagement.API.Controllers
         public async Task<IActionResult> DeleteUser(Guid id)
         {
             var responseDto = await _mediator.Send(new DeleteUserCommand(id));
-            if (responseDto.ErrorOccured) return BadRequest(responseDto.Error);
+            if (responseDto.ErrorOccured) return BadRequest(responseDto.Message);
             if (responseDto.EntityDto == null) return NoContent();
 
             return Ok(responseDto.EntityDto);
