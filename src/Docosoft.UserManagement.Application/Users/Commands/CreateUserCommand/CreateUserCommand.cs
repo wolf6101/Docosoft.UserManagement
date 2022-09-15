@@ -13,7 +13,14 @@ namespace Docosoft.UserManagement.Application.Users
             this.Gender = gender;
             this.Email = email;
             this.UserRoleId = userRoleId;
-
+        }
+        public CreateUserCommand(CreateUserRequestDto request)
+        {
+            this.FirstName = request.FirstName;
+            this.LastName = request.LastName;
+            this.Gender = request.Gender;
+            this.Email = request.Email;
+            this.UserRoleId = request.UserRoleId;
         }
         public string FirstName { get; }
         public string LastName { get; }

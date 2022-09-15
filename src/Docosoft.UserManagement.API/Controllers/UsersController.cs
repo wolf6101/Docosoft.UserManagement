@@ -35,8 +35,9 @@ namespace Docosoft.UserManagement.API.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<UserDto>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> GetAll([FromQuery] GetAllUsersQuery query)
+        public async Task<IActionResult> GetAll([FromQuery] GetAllUsersRequestDto request)
         {
+            var query = new GetAllUsersQuery(request);
             var list = await _mediator.Send(query);
 
             if (list == null || list.Count == 0) return NotFound();
@@ -47,9 +48,11 @@ namespace Docosoft.UserManagement.API.Controllers
         [Route("", Name = "CreateUser")]
         [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserCommand command)
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserRequestDto request)
         {
+            var command = new CreateUserCommand(request);
             var response = await _mediator.Send(command);
+            
             if (response.ErrorOccured) return BadRequest(response.Message);
 
             return CreatedAtRoute("CreateUser", new { id = response.EntityDto.Id }, response.EntityDto);
@@ -60,8 +63,9 @@ namespace Docosoft.UserManagement.API.Controllers
         [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommand command)
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserRequestDto request)
         {
+            var command = new UpdateUserCommand(request);
             var response = await _mediator.Send(command);
 
             if (response.ErrorOccured) return Conflict(response.Message);

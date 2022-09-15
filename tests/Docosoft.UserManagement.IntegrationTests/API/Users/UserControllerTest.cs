@@ -27,26 +27,31 @@ namespace Docosoft.UserManagement.IntegrationTests.API.Users
         public async void UserControllerTest_POST_ShouldCreateNewUser()
         {
             // Arrange
-            var createCommand = new CreateUserCommand("Test Name", "Test Last Name", "Female", "Email", ApiUsersRoleId);
+            var createRequest = new CreateUserRequestDto()
+            {
+                FirstName = "Test Name",
+                LastName = "Test Last Name",
+                Gender = "Female",
+                Email = "Email",
+                UserRoleId = ApiUsersRoleId
+            };
             var client = _factory.CreateClient();
 
-            var postResponse = await client.PostAsJsonAsync<CreateUserCommand>("api/Users", createCommand);
+            var postResponse = await client.PostAsJsonAsync<CreateUserRequestDto>("api/Users", createRequest);
             var userDto = await postResponse.Content.ReadFromJsonAsync<UserDto>();
 
             // Act
             var deleteResponse = await client.DeleteAsync($"api/Users/{userDto.Id}");
             var deleteUserDto = deleteResponse.Content.ReadFromJsonAsync<UserDto>();
-            // var getResponse = await client.GetAsync("api/Users");
-            // var allUsersResponse = await getResponse.Content.ReadFromJsonAsync<IList<UserDto>>();
-            
+
             // Assert
             Assert.Equal(HttpStatusCode.Created, postResponse.StatusCode);
             Assert.NotNull(userDto);
             Assert.NotNull(userDto.Id);
-            Assert.Equal(userDto.FirstName, createCommand.FirstName);
-            Assert.Equal(userDto.LastName, createCommand.LastName);
-            Assert.Equal(userDto.Email, createCommand.Email);
-            Assert.Equal(userDto.UserRoleId, createCommand.UserRoleId);
+            Assert.Equal(userDto.FirstName, createRequest.FirstName);
+            Assert.Equal(userDto.LastName, createRequest.LastName);
+            Assert.Equal(userDto.Email, createRequest.Email);
+            Assert.Equal(userDto.UserRoleId, createRequest.UserRoleId);
 
             Assert.Equal(HttpStatusCode.OK, deleteResponse.StatusCode);
             Assert.NotNull(deleteUserDto);
@@ -58,11 +63,19 @@ namespace Docosoft.UserManagement.IntegrationTests.API.Users
         {
             // Arrange
             var userId = new Guid("a80367f2-80cd-4e1c-8532-08770c73f3c8");
-            var updateCommand = new UpdateUserCommand(userId, "Test Name", "Test Last Name", "Female", "Email", ApiUsersRoleId);
+            var updateRequest = new UpdateUserRequestDto()
+            {
+                Id = userId,
+                FirstName = "Test Name",
+                LastName = "Test Last Name",
+                Gender = "Female",
+                Email = "Email",
+                UserRoleId = ApiUsersRoleId
+            };
             var client = _factory.CreateClient();
-            
+
             // Act
-            var putResponse = await client.PutAsJsonAsync<UpdateUserCommand>("api/Users", updateCommand);
+            var putResponse = await client.PutAsJsonAsync<UpdateUserRequestDto>("api/Users", updateRequest);
             var userDto = await putResponse.Content.ReadFromJsonAsync<UserDto>();
 
             var deleteResponse = await client.DeleteAsync($"api/Users/{userDto.Id}");
@@ -72,10 +85,10 @@ namespace Docosoft.UserManagement.IntegrationTests.API.Users
             Assert.Equal(HttpStatusCode.Created, putResponse.StatusCode); // should be created because used didn't exist in the system
             Assert.NotNull(userDto);
             Assert.Equal(userDto.Id, userId);
-            Assert.Equal(userDto.FirstName, updateCommand.FirstName);
-            Assert.Equal(userDto.LastName, updateCommand.LastName);
-            Assert.Equal(userDto.Email, updateCommand.Email);
-            Assert.Equal(userDto.UserRoleId, updateCommand.UserRoleId);
+            Assert.Equal(userDto.FirstName, updateRequest.FirstName);
+            Assert.Equal(userDto.LastName, updateRequest.LastName);
+            Assert.Equal(userDto.Email, updateRequest.Email);
+            Assert.Equal(userDto.UserRoleId, updateRequest.UserRoleId);
 
             Assert.Equal(HttpStatusCode.OK, deleteResponse.StatusCode);
             Assert.NotNull(deleteUserDto);
@@ -86,17 +99,30 @@ namespace Docosoft.UserManagement.IntegrationTests.API.Users
         public async void UserControllerTest_PUT_ShouldUpdateUser()
         {
             // Arrange
-            var createCommand = new CreateUserCommand("Test Name", "Test Last Name", "Female", "Email", ApiUsersRoleId);
-            
+            var createRequest = new CreateUserRequestDto()
+            {
+                FirstName = "Test Name",
+                LastName = "Test Last Name",
+                Gender = "Female",
+                Email = "Email",
+                UserRoleId = ApiUsersRoleId
+            };
             var client = _factory.CreateClient();
 
             // Act
-            var createResponse = await client.PostAsJsonAsync<CreateUserCommand>("api/Users", createCommand);
+            var createResponse = await client.PostAsJsonAsync<CreateUserRequestDto>("api/Users", createRequest);
             var createUserDto = await createResponse.Content.ReadFromJsonAsync<UserDto>();
 
-            var updateCommand = new UpdateUserCommand(createUserDto.Id, "Test Name 1", "Test Last Name 1", "Male", "Email", ApiUsersRoleId);
-
-            var putResponse = await client.PutAsJsonAsync<UpdateUserCommand>("api/Users", updateCommand);
+            var updateRequest = new UpdateUserRequestDto()
+            {
+                Id = createUserDto.Id,
+                FirstName = "Test Name 1",
+                LastName = "Test Last Name 1",
+                Gender = "Male",
+                Email = "Email 1",
+                UserRoleId = ApiUsersRoleId
+            };
+            var putResponse = await client.PutAsJsonAsync<UpdateUserRequestDto>("api/Users", updateRequest);
             var putUserDto = await putResponse.Content.ReadFromJsonAsync<UserDto>();
 
             var deleteResponse = await client.DeleteAsync($"api/Users/{putUserDto.Id}");
@@ -105,10 +131,10 @@ namespace Docosoft.UserManagement.IntegrationTests.API.Users
             Assert.Equal(HttpStatusCode.OK, putResponse.StatusCode); // should be OK because user existed before PUT
             Assert.NotNull(putUserDto);
             Assert.Equal(putUserDto.Id, createUserDto.Id);
-            Assert.Equal(putUserDto.FirstName, updateCommand.FirstName);
-            Assert.Equal(putUserDto.LastName, updateCommand.LastName);
-            Assert.Equal(putUserDto.Email, updateCommand.Email);
-            Assert.Equal(putUserDto.UserRoleId, updateCommand.UserRoleId);
+            Assert.Equal(putUserDto.FirstName, updateRequest.FirstName);
+            Assert.Equal(putUserDto.LastName, updateRequest.LastName);
+            Assert.Equal(putUserDto.Email, updateRequest.Email);
+            Assert.Equal(putUserDto.UserRoleId, updateRequest.UserRoleId);
 
             Assert.Equal(HttpStatusCode.OK, deleteResponse.StatusCode);
             Assert.NotNull(deleteUserDto);
@@ -119,16 +145,21 @@ namespace Docosoft.UserManagement.IntegrationTests.API.Users
         public async void UserControllerTest_GET_ShouldReturnCreatedUser()
         {
             // Arrange
-            var createCommand = new CreateUserCommand("Test Name", "Test Last Name", "Female", "Email", ApiUsersRoleId);
-            
+            var createRequest = new CreateUserRequestDto()
+            {
+                FirstName = "Test Name",
+                LastName = "Test Last Name",
+                Gender = "Female",
+                Email = "Email",
+                UserRoleId = ApiUsersRoleId
+            };
             var client = _factory.CreateClient();
 
             // Act
-            var createResponse = await client.PostAsJsonAsync<CreateUserCommand>("api/Users", createCommand);
+            var createResponse = await client.PostAsJsonAsync<CreateUserRequestDto>("api/Users", createRequest);
             var createUserDto = await createResponse.Content.ReadFromJsonAsync<UserDto>();
-            
-            var getQuery = new GetUserQuery(createUserDto.Id);
-            var getResponse = await client.GetAsync($"api/Users/{createUserDto.Id}" );
+
+            var getResponse = await client.GetAsync($"api/Users/{createUserDto.Id}");
             var getUserDto = await getResponse.Content.ReadFromJsonAsync<UserDto>();
 
             var deleteResponse = await client.DeleteAsync($"api/Users/{getUserDto.Id}");
@@ -137,10 +168,10 @@ namespace Docosoft.UserManagement.IntegrationTests.API.Users
             Assert.Equal(HttpStatusCode.OK, getResponse.StatusCode); // should be OK because user existed before PUT
             Assert.NotNull(getUserDto);
             Assert.Equal(getUserDto.Id, createUserDto.Id);
-            Assert.Equal(getUserDto.FirstName, createCommand.FirstName);
-            Assert.Equal(getUserDto.LastName, createCommand.LastName);
-            Assert.Equal(getUserDto.Email, createCommand.Email);
-            Assert.Equal(getUserDto.UserRoleId, createCommand.UserRoleId);
+            Assert.Equal(getUserDto.FirstName, createRequest.FirstName);
+            Assert.Equal(getUserDto.LastName, createRequest.LastName);
+            Assert.Equal(getUserDto.Email, createRequest.Email);
+            Assert.Equal(getUserDto.UserRoleId, createRequest.UserRoleId);
 
             Assert.Equal(HttpStatusCode.OK, deleteResponse.StatusCode);
             Assert.NotNull(deleteUserDto);
@@ -151,16 +182,21 @@ namespace Docosoft.UserManagement.IntegrationTests.API.Users
         public async void UserControllerTest_GET_ShouldReturn2Users()
         {
             // Arrange
-            var createCommand = new CreateUserCommand("Test Name", "Test Last Name", "Female", "Email", ApiUsersRoleId);
-            
+            var createRequest = new CreateUserRequestDto()
+            {
+                FirstName = "Test Name",
+                LastName = "Test Last Name",
+                Gender = "Female",
+                Email = "Email",
+                UserRoleId = ApiUsersRoleId
+            };
             var client = _factory.CreateClient();
 
             // Act
-            var createResponse = await client.PostAsJsonAsync<CreateUserCommand>("api/Users", createCommand);
+            var createResponse = await client.PostAsJsonAsync<CreateUserRequestDto>("api/Users", createRequest);
             var createUserDto = await createResponse.Content.ReadFromJsonAsync<UserDto>();
-            
-            var getAllUsersQuery = new GetAllUsersQuery(0,10);
-            var getResponse = await client.GetAsync($"api/Users" );
+
+            var getResponse = await client.GetAsync($"api/Users");
             var getUsersDtos = await getResponse.Content.ReadFromJsonAsync<IList<UserDto>>();
 
             var deleteResponse = await client.DeleteAsync($"api/Users/{createUserDto.Id}");

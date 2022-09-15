@@ -4,8 +4,10 @@ namespace Docosoft.UserManagement.Application.Users
 {
     public class GetAllUsersQuery : IRequest<IList<UserDto>>
     {
-        public GetAllUsersQuery()
+        public GetAllUsersQuery(GetAllUsersRequestDto request)
         {
+            this.Offset = request.Offset;
+            this.Limit = request.Limit;
         }
         public GetAllUsersQuery(int offset, int limit)
         {

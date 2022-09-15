@@ -6,6 +6,15 @@ namespace Docosoft.UserManagement.Application.Users
 {
     public class UpdateUserCommand : IRequest<ResponseDto<UserDto>>
     {
+        public UpdateUserCommand(UpdateUserRequestDto request)
+        {
+            this.Id = request.Id;
+            this.FirstName = request.FirstName;
+            this.LastName = request.LastName;
+            this.Gender = request.Gender;
+            this.Email = request.Email;
+            this.UserRoleId = request.UserRoleId;
+        }
         public UpdateUserCommand(Guid id, string firstName, string lastName, string gender, string email, Guid userRoleId)
         {
             this.Id = id;
